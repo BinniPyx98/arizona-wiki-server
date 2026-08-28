@@ -1,4 +1,4 @@
-package config
+package db
 
 import (
 	"context"
@@ -13,7 +13,7 @@ func ConnectionToYDB() *firestore.Client {
 	ctx := context.Background()
 
 	projectID := "arizona-wiki"
-	pathToKey := "C:\\Users\\aleks\\Desktop\\GO_Projects\\Arizona_wiki_server\\src\\config\\firebase_key.json"
+	pathToKey := "C:\\Users\\aleks\\Desktop\\GO_Projects\\Arizona_wiki_server\\internal\\db\\firebase_key.json"
 
 	opt := option.WithAuthCredentialsFile(option.ServiceAccount, pathToKey)
 

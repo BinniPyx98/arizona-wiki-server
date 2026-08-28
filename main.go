@@ -1,8 +1,8 @@
 package main
 
 import (
-	"arizona-server/src/config"
-	"arizona-server/src/controller"
+	"arizona-server/cmd/controller"
+	"arizona-server/internal/db"
 	"fmt"
 
 	"cloud.google.com/go/firestore"
@@ -12,7 +12,7 @@ import (
 var DBClient *firestore.Client
 
 func init() {
-	DBClient = config.ConnectionToYDB()
+	DBClient = db.ConnectionToYDB()
 
 	//config.GetEnv()
 
