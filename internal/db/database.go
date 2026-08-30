@@ -22,7 +22,6 @@ func ConnectionToYDB() *firestore.Client {
 	if err != nil {
 		log.Fatal("error creating client:", err)
 	}
-	//defer client.Close()
 	log.Println("Connected to YDB")
 	return client
 }
