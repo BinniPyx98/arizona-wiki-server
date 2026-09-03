@@ -20,7 +20,7 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YANDEX_SERVICE_AC_KEY }}
           # Настройки функции
           folder-id: ${{ secrets.YC_FOLDER_ID }} # ID каталога в облаке
-          function-name: 'arz-getItem-function'  # Имя функции в консоли Яндекса
+          function-name: 'arz-get-item-function'  # Имя функции в консоли Яндекса
           runtime: 'go121'                    # Окружение (например: nodejs18, python311, go121)
           source: '.'
           entrypoint: './cmd/get-item/GetItem'            # Точка входа (файл.экспортируемая_функция)
