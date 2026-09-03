@@ -1,0 +1,40 @@
+name: Deploy Cloud Function GetGameItem to Yandex Cloud
+on:
+  push:
+    branches:
+      - main # Срабатывает при пуше в основную ветку
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Клонируем репозиторий
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Авторизация в Yandex Cloud с помощью JSON-ключа
+      - name: Yandex Cloud Auth
+        uses: yandex-cloud/yc-actions-auth@v2
+        with:
+          # Передаем весь JSON-ключ из секретов GitHub
+          service-account-key: ${{ secrets.YANDEX_SERVICE_AC_KEY }}
+
+      # 3. Деплоим код в Яндекс Облако
+      - name: Deploy Serverless Function
+        uses: yc-actions/yc-sls-function@v3
+        with:
+          # Настройки функции
+          folder-id: ${{ secrets.YC_FOLDER_ID }} # ID каталога в облаке
+          function-name: 'arz-getItem-function'  # Имя функции в консоли Яндекса
+          runtime: 'go121'                    # Окружение (например: nodejs18, python311, go121)
+          source: '.'
+          entrypoint: './cmd/get-item/GetItem'            # Точка входа (файл.экспортируемая_функция)
+          memory: '128'                          # Объем памяти в МБ (от 128 до 4096)
+          execution-timeout: '5'                 # Таймаут выполнения в секундах
+          environment: |
+            DATABASE_KEY=${{ secrets.DB_KEY }}
+          # Источник кода
+          exclude: |                             # Что исключить из архива при деплое
+            .git/**
+            .github/**
