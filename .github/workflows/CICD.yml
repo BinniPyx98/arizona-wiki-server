@@ -24,7 +24,6 @@ jobs:
           runtime: 'go121'                    # Окружение (например: nodejs18, python311, go121)
           source: '.'
           entrypoint: './cmd/get-item/GetItem'            # Точка входа (файл.экспортируемая_функция)
-          memory: '128m'                          # Объем памяти в МБ (от 128 до 4096)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
           environment: |
             DATABASE_KEY=${{ secrets.DB_KEY }}
