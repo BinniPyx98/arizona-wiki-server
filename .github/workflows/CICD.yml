@@ -13,17 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Авторизация в Yandex Cloud с помощью JSON-ключа
-      - name: Yandex Cloud Auth
-        uses: yandex-cloud/yc-actions-auth@v2
-        with:
-          # Передаем весь JSON-ключ из секретов GitHub
-          service-account-key: ${{ secrets.YANDEX_SERVICE_AC_KEY }}
-
       # 3. Деплоим код в Яндекс Облако
       - name: Deploy Serverless Function
         uses: yc-actions/yc-sls-function@v3
         with:
+          yc-sa-json-credentials: ${{ secrets.YANDEX_SERVICE_AC_KEY }}
           # Настройки функции
           folder-id: ${{ secrets.YC_FOLDER_ID }} # ID каталога в облаке
           function-name: 'arz-getItem-function'  # Имя функции в консоли Яндекса
