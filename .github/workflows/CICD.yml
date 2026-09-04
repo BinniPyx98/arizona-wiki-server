@@ -31,9 +31,15 @@ jobs:
         uses: yc-actions/yc-sls-function@v5
         with:
           yc-sa-json-credentials: ${{ secrets.YANDEX_SERVICE_AC_KEY }}
-                   # Настройки функции
+          # Настройки функции
           folder-id: ${{ secrets.YC_FOLDER_ID }} # ID каталога в облаке
           function-name: 'arz-get-item-function'  # Имя функции в консоли Яндекса
           runtime: 'golang121'                    # Окружение (например: nodejs18, python311, go121)
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
+          environment: |
+            DATABASE_KEY=${{ secrets.DB_KEY }}
+          # Источник кода
+          exclude: |                             # Что исключить из архива при деплое
+            .git/**
+            .github/**
