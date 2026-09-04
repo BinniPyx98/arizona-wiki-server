@@ -1,6 +1,6 @@
 module arizona-server
 
-go 1.26.3
+go 1.25.0
 
 require (
 	cloud.google.com/go/firestore v1.25.0

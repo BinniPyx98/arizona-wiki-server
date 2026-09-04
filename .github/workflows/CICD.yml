@@ -60,8 +60,8 @@ jobs:
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
           memory: '256Mb'
-          environment: |
-            DATABASE_KEY=${{ secrets.DB_KEY }}
+            # environment: |
+          #  DATABASE_KEY=${{ secrets.DB_KEY }}
           # Источник кода
           exclude: |                             # Что исключить из архива при деплое
             .git/**
