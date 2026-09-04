@@ -40,7 +40,3 @@ jobs:
           execution-timeout: '5'                 # Таймаут выполнения в секундах
           environment: |
             DATABASE_KEY=${{ secrets.DB_KEY }}
-          # Источник кода
-          exclude: |                             # Что исключить из архива при деплое
-            .git/**
-            .github/**
