@@ -36,6 +36,7 @@ jobs:
           folder-id: ${{ secrets.YC_FOLDER_ID }} # ID каталога в облаке
           function-name: 'arz-get-item-function'  # Имя функции в консоли Яндекса
           runtime: 'golang121'                    # Окружение (например: nodejs18, python311, go121)
+          memory: '256Mb'
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
           environment: |
