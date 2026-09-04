@@ -25,8 +25,18 @@ jobs:
          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
          DB_KEY: ${{ secrets.DB_KEY }}
 
+      # 3. Упаковываем всё для деплоя в одну папку
+      - name: Prepare deployable package
+        run: |
+          mkdir -p ./deploy
+          cp go.mod ./deploy/
+          cp go.sum ./deploy/ 2>/dev/null || true
+          # Кладем main.go прямо в корень deploy
+          cp cmd/get-item/main.go ./deploy/
+          # Если есть internal/pkg — тоже копируй сюда
+          # cp -r internal ./deploy/
 
-      # 3. Деплоим код в Яндекс Облако
+      # 4. Деплоим код в Яндекс Облако
       - name: Deploy Serverless Function
         uses: yc-actions/yc-sls-function@v5
         with:
@@ -37,6 +47,7 @@ jobs:
           runtime: 'golang121'                    # Окружение (например: nodejs18, python311, go121)
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
+          memory: '256Mb'
           environment: |
             DATABASE_KEY=${{ secrets.DB_KEY }}
           # Источник кода
