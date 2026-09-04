@@ -39,5 +39,3 @@ jobs:
           memory: '256Mb'
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           execution-timeout: '5'                 # Таймаут выполнения в секундах
-          environment: |
-            DATABASE_KEY=${{ secrets.DB_KEY }}
