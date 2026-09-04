@@ -13,6 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+
+      # 2. Проверяем ключи
+      - name: Validate secrets
+        run: |
+         echo "YC_FOLDER_ID: '${YC_FOLDER_ID}'"
+         echo "DB_KEY: '${DB_KEY}'"
+         if [ -z "$YC_FOLDER_ID" ]; then echo "ERROR: YC_FOLDER_ID is missing!" && exit 1; fi
+         if [ -z "$DB_KEY" ]; then echo "ERROR: DB_KEY is missing!" && exit 1; fi
+        env:
+         YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+         DB_KEY: ${{ secrets.DB_KEY }}
+
+
       # 3. Деплоим код в Яндекс Облако
       - name: Deploy Serverless Function
         uses: yc-actions/yc-sls-function@v5
