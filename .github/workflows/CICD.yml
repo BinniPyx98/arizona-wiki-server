@@ -35,7 +35,7 @@ jobs:
           # Кладем main.go прямо в корень deploy
           cp cmd/get-item/main.go ./deploy/
           # Если есть internal/pkg — тоже копируй сюда
-          # cp -r internal ./deploy/
+          cp -r internal ./deploy/
 
       # 4: Проверка созданной папки
       - name: Debug list deploy folder
@@ -61,8 +61,8 @@ jobs:
           source-root: './deploy'
           execution-timeout: '5'                 # Таймаут выполнения в секундах
           memory: '256Mb'
-            # environment: |
-          #  DATABASE_KEY=${{ secrets.DB_KEY }}
+          environment: |
+            DATABASE_KEY=${{ secrets.DB_KEY }}
           # Источник кода
           exclude: |                             # Что исключить из архива при деплое
             .git/**
