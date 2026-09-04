@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'ci/github-actions' # Срабатывает при пуше в основную ветку
+  workflow_dispatch:
 
 jobs:
   deploy:
