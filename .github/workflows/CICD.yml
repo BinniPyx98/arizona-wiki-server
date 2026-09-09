@@ -21,6 +21,8 @@ jobs:
          echo "YC_FOLDER_ID: '${YC_FOLDER_ID}'"
          echo "DB_KEY: '${DB_KEY}'"
          echo "YC_NETWORK_ID: '${YC_NETWORK_ID}'"
+         echo "Length: ${#YC_NETWORK_ID}"
+         echo "Value: [${YC_NETWORK_ID}]"
          if [ -z "$YC_FOLDER_ID" ]; then echo "ERROR: YC_FOLDER_ID is missing!" && exit 1; fi
          if [ -z "$DB_KEY" ]; then echo "ERROR: DB_KEY is missing!" && exit 1; fi
           if [ -z "$YC_NETWORK_ID" ]; then echo "ERROR: YC_NETWORK_ID is missing!" && exit 1; fi
