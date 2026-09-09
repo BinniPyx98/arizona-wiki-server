@@ -20,7 +20,7 @@ func ConnectionToYDB() *firestore.Client {
 	client, err := firestore.NewClient(ctx, projectID, opt)
 
 	if err != nil {
-		log.Fatal("error creating client:", err)
+		log.Printf("error creating client: %v", err)
 	}
 	log.Println("Connected to YDB")
 	return client

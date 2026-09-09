@@ -28,22 +28,23 @@ func (s *Service) AddGameItem(ctx context.Context) {
 	if err != nil {
 		log.Fatal("Error while adding gameItem to firestore:", err)
 	}
-	log.Printf("Successfully added gameItem to firestore: %v", ref.ID, result.UpdateTime)
+	log.Printf("Successfully added gameItem to firestore: %v: %v", ref.ID, result.UpdateTime)
 }
 
 func (s *Service) GetItem(ctx context.Context) {
-
+	log.Printf("Function step 2")
 	type Item struct {
 	}
 	result, err := s.dbClient.Collection("items").Doc("X3tSYvMIoA39LxZTC0ne").Get(ctx)
 
 	if err != nil {
 		if status.Code(err) == codes.NotFound {
-			log.Fatalf("Could not find X3tSYvMIoA39LxZTC0ne")
+			log.Printf("Could not find X3tSYvMIoA39LxZTC0ne")
 		} else {
-			log.Fatalf("Error getting X3tSYvMIoA39LxZTC0ne: %v", err)
+			log.Printf("Error getting X3tSYvMIoA39LxZTC0ne: %v", err)
 		}
 	}
+
 	dataMap := result.Data()
 
 	for key, value := range dataMap {

@@ -3,6 +3,7 @@ package main
 import (
 	"arizona-server/internal/db"
 	"arizona-server/internal/service"
+	"log"
 	"net/http"
 )
 
@@ -14,6 +15,7 @@ func init() {
 }
 
 func GetItem(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Function step 1")
 	ctx := r.Context()
 	gItemService.GetItem(ctx)
 }
