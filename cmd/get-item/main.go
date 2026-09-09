@@ -29,6 +29,3 @@ func GetItem(w http.ResponseWriter, r *http.Request) {
 	//}
 	//gItemService.GetItem(r.Context())
 }
-func main() {
-
-}
