@@ -20,16 +20,13 @@ jobs:
         run: |
          echo "YC_FOLDER_ID: '${YC_FOLDER_ID}'"
          echo "DB_KEY: '${DB_KEY}'"
-         echo "YC_NETWORK_ID: '${YC_NETWORK_ID}'"
-         echo "Length: ${#YC_NETWORK_ID}"
-         echo "Value: [${YC_NETWORK_ID}]"
          if [ -z "$YC_FOLDER_ID" ]; then echo "ERROR: YC_FOLDER_ID is missing!" && exit 1; fi
          if [ -z "$DB_KEY" ]; then echo "ERROR: DB_KEY is missing!" && exit 1; fi
-          if [ -z "$YC_NETWORK_ID" ]; then echo "ERROR: YC_NETWORK_ID is missing!" && exit 1; fi
+
         env:
          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
          DB_KEY: ${{ secrets.DB_KEY }}
-         YC_NETWORK_ID: ${{secrets.YC_NETWORK_ID}}
+
 
       # 3. Упаковываем всё для деплоя в одну папку
       - name: Prepare deployable package
@@ -66,7 +63,6 @@ jobs:
           source-root: './deploy'
           execution-timeout: '30'                 # Таймаут выполнения в секундах
           memory: '256Mb'
-          network-id: ${{ secrets.YC_NETWORK_ID }}
           environment: |
             DATABASE_KEY=${{ secrets.DB_KEY }}
           # Источник кода
