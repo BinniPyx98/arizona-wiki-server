@@ -2,7 +2,7 @@ name: Deploy Cloud Function GetGameItem to Yandex Cloud
 on:
   push:
     branches:
-      - 'ci/github-actions' # Срабатывает при пуше в основную ветку
+      - 'feature/get-game-item-func' # Срабатывает при пуше в основную ветку
   workflow_dispatch:
 
 jobs:
