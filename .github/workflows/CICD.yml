@@ -59,8 +59,9 @@ jobs:
           runtime: 'golang121'                    # Окружение (например: nodejs18, python311, go121)
           entrypoint: 'main.GetItem'            # Точка входа (файл.экспортируемая_функция)
           source-root: './deploy'
-          execution-timeout: '5'                 # Таймаут выполнения в секундах
+          execution-timeout: '30'                 # Таймаут выполнения в секундах
           memory: '256Mb'
+          network-id: ${{ secrets.YC_NETWORK_ID }}
           environment: |
             DATABASE_KEY=${{ secrets.DB_KEY }}
           # Источник кода
