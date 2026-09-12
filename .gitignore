@@ -1,5 +1,7 @@
+deploy-test
 # Кредо
 firebase_key.json
+encoded.txt
 authorized_key.json
 # Бинарные файлы
 *.exe

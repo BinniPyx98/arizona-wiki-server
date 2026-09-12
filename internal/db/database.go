@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
@@ -20,9 +21,10 @@ func ConnectionToYDB() (*firestore.Client, error) {
 	// pathToKey := "C:\\Users\\aleks\\Desktop\\GO_Projects\\Arizona_wiki_server\\internal\\db\\firebase_key.json"
 	//opt := option.WithAuthCredentialsFile(option.ServiceAccount, pathToKey)
 
-	keyJSON := os.Getenv("DATABASE_KEY")
-	if keyJSON == "" {
-		return nil, fmt.Errorf("Database key is empty")
+	keyBase64 := os.Getenv("DATABASE_KEY")
+	keyJSON, err := base64.StdEncoding.DecodeString(keyBase64)
+	if err != nil {
+		return nil, err
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
