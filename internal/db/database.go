@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
+	"unicode"
 
 	"cloud.google.com/go/firestore"
 	"google.golang.org/api/option"
@@ -22,8 +24,10 @@ func ConnectionToYDB() (*firestore.Client, error) {
 	//opt := option.WithAuthCredentialsFile(option.ServiceAccount, pathToKey)
 
 	keyBase64 := os.Getenv("DATABASE_KEY")
-	keyJSON, err := base64.StdEncoding.DecodeString(keyBase64)
+	cleanedKey := cleanBase64(keyBase64)
+	keyJSON, err := base64.StdEncoding.DecodeString(cleanedKey)
 	if err != nil {
+		log.Printf("Base64 decode error: %v", err)
 		return nil, err
 	}
 
@@ -39,4 +43,12 @@ func ConnectionToYDB() (*firestore.Client, error) {
 	}
 	log.Println("Connected to YDB")
 	return client, nil
+}
+func cleanBase64(s string) string {
+	return strings.Map(func(r rune) rune {
+		if unicode.IsSpace(r) {
+			return -1 // удаляем символ
+		}
+		return r
+	}, s)
 }
