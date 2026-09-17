@@ -3,29 +3,29 @@ package db
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
-	"log"
 	"os"
 	"strings"
+
+	"fmt"
+	"log"
 	"time"
-	"unicode"
 
 	"cloud.google.com/go/firestore"
 	"google.golang.org/api/option"
 )
 
+// Connect to db
 func ConnectionToYDB() (*firestore.Client, error) {
-	//Connect to db
+
 	ctx := context.Background()
 
 	projectID := "arizona-wiki"
-	// Path to key for local test
-	// pathToKey := "C:\\Users\\aleks\\Desktop\\GO_Projects\\Arizona_wiki_server\\internal\\db\\firebase_key.json"
-	//opt := option.WithAuthCredentialsFile(option.ServiceAccount, pathToKey)
-
 	keyBase64 := os.Getenv("DATABASE_KEY")
-	cleanedKey := cleanBase64(keyBase64)
+	cleanedKey := strings.NewReplacer(" ", "", "\n", "", "\r", "").Replace(keyBase64)
+
 	keyJSON, err := base64.StdEncoding.DecodeString(cleanedKey)
+	log.Printf("Base64 decode error: %v", err)
+
 	if err != nil {
 		log.Printf("Base64 decode error: %v", err)
 		return nil, err
@@ -43,12 +43,4 @@ func ConnectionToYDB() (*firestore.Client, error) {
 	}
 	log.Println("Connected to YDB")
 	return client, nil
-}
-func cleanBase64(s string) string {
-	return strings.Map(func(r rune) rune {
-		if unicode.IsSpace(r) {
-			return -1 // удаляем символ
-		}
-		return r
-	}, s)
 }
